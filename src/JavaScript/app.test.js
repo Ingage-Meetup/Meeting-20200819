@@ -1,6 +1,5 @@
-const { doAllTheThings } = require('./app');
+const { ranks, bestHand } = require('./app');
 
-// This is a Jest unit test - see https://jestjs.io/docs/en/getting-started for more information
-test('doAllTheThings should be true', () => {
-    expect(doAllTheThings()).toBeTruthy();
+test('Given a hand with no pairs when calculating best hand should return high card', () => {
+    expect(bestHand('KS 2H 5C JD TD')).toBe(ranks.highCard);
 });
