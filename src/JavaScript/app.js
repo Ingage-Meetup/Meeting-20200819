@@ -15,16 +15,11 @@ function bestHand(hand) {
 
     const numeralGroup = groupBy(numerals, 'number');
     const suiteGroup = groupBy(suites, 'suite');
-    console.log(numeralGroup);
-    console.log(suiteGroup);
 
-    const numeralGroupArray = [...numeralGroup.values()];
-    const suiteGroupArray = [...suiteGroup.values()];
-
-    const flush = suiteGroupArray.filter(x => x.count === 5).length === 1;
-    const fours = numeralGroupArray.filter(x => x.count === 4).length;
-    const triplets = numeralGroupArray.filter(x => x.count === 3).length;
-    const pairs = numeralGroupArray.filter(x => x.count === 2).length;
+    const flush = suiteGroup.filter(x => x.count === 5).length === 1;
+    const fours = numeralGroup.filter(x => x.count === 4).length;
+    const triplets = numeralGroup.filter(x => x.count === 3).length;
+    const pairs = numeralGroup.filter(x => x.count === 2).length;
 
     if (fours === 1) return ranks.fourOfAKind;
     if (triplets === 1 && pairs == 1) return ranks.fullHouse;
@@ -37,12 +32,14 @@ function bestHand(hand) {
 }
 
 function groupBy(items, fieldName) {
-    return items.reduce((accumulator, item) => {
+    var results = items.reduce((accumulator, item) => {
         const value = accumulator.get(item) || {[fieldName]: item, count: 0};
         value.count++;
         accumulator.set(item,  value);
         return accumulator;
     }, new Map());
+
+    return [...results.values()];
 }
 
 module.exports = { ranks, bestHand };
