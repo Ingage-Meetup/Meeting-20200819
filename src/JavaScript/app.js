@@ -3,6 +3,7 @@ const ranks = {
     onePair: "Pair",
     twoPairs: "Two Pairs",
     threeOfAKind: "Three of a Kind",
+    fullHouse: "Full House",
     fourOfAKind: "Four of a Kind",
 }
 
@@ -19,18 +20,19 @@ function bestHand(hand) {
         return accumulator;
     }, new Map());
 
-    const fours = [...numeralGroup.values()].filter(x => x.count === 4).length;
-    const triplets = [...numeralGroup.values()].filter(x => x.count === 3).length;
-    const pairs = [...numeralGroup.values()].filter(x => x.count === 2).length;
+    const numeralGroupArray = [...numeralGroup.values()];
+
+    const fours = numeralGroupArray.filter(x => x.count === 4).length;
+    const triplets = numeralGroupArray.filter(x => x.count === 3).length;
+    const pairs = numeralGroupArray.filter(x => x.count === 2).length;
 
     if (fours === 1) return ranks.fourOfAKind;
+    if (triplets === 1 && pairs == 1) return ranks.fullHouse;
     if (triplets === 1) return ranks.threeOfAKind;
     if (pairs === 2) return ranks.twoPairs;
     if (pairs === 1) return ranks.onePair;
     
     return ranks.highCard;
 }
-
-
 
 module.exports = { ranks, bestHand };

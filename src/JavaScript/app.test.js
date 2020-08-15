@@ -24,6 +24,12 @@ describe('Given a hand with three Jacks', () => {
     });
 });
 
+describe('Given a hand with three Jacks and 2 twos', () => {
+    it('should return three of a kind', () => {
+        expect(bestHand('2S 2H JH JD JC')).toBe(ranks.fullHouse);
+    });
+});
+
 describe('Given a hand with four Jacks', () => {
     it('should return four of a kind', () => {
         expect(bestHand('JS 2H JH JD JC')).toBe(ranks.fourOfAKind);
