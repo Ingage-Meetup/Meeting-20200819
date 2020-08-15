@@ -35,3 +35,9 @@ describe('Given a hand with four Jacks', () => {
         expect(bestHand('JS 2H JH JD JC')).toBe(ranks.fourOfAKind);
     });
 });
+
+describe('Given a hand with all the same suite', () => {
+    it('should return four of a kind', () => {
+        expect(bestHand('JS 2S 5S 7S 9S')).toBe(ranks.flush);
+    });
+});
