@@ -11,3 +11,9 @@ describe('Given a hand with one pair ', () => {
         expect(bestHand('KS 2H 2C JD TD')).toBe(ranks.onePair);
     });
 });
+
+describe('Given a hand with two pairs ', () => {
+    it('should return two pairs', () => {
+        expect(bestHand('KS 2H 2C JD JC')).toBe(ranks.twoPairs);
+    });
+});
