@@ -7,6 +7,7 @@ const ranks = {
     fourOfAKind: "Four of a Kind",
     flush: "Flush",
     straight: "Straight",
+    straightFlush: "Straight Flush"
 }
 
 // TODO: Handle A being high or low
@@ -29,6 +30,7 @@ function bestHand(hand) {
 
     const straight = isStraight(numerals);
 
+    if (flush && straight) return ranks.straightFlush;    
     if (fours === 1) return ranks.fourOfAKind;
     if (triplets === 1 && pairs == 1) return ranks.fullHouse;
     if (flush) return ranks.flush;

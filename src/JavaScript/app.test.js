@@ -65,3 +65,16 @@ describe('Given a hand with Ace, 2, 3, 4, 5', () => {
         expect(bestHand('2H 3S 4S 5D AS')).toBe(ranks.straight);
     });
 });
+
+describe('Given a hand with 2, 3, 4, 5, 6 with same suite', () => {
+    it('should return straight flush', () => {
+        expect(bestHand('2H 3H 4H 5H 6H')).toBe(ranks.straightFlush);
+    });
+});
+
+describe('Given a hand with Ace, 2, 3, 4, 5 with same suite', () => {
+    it('should return straight flush and not royal flush', () => {
+        expect(bestHand('2H 3H 4H 5H AH')).toBe(ranks.straightFlush);
+    });
+});
+
