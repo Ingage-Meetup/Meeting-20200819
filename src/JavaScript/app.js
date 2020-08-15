@@ -1,7 +1,9 @@
 const ranks = {
     highCard: "HighCard",
     onePair: "Pair",
-    twoPais: "Two Pairs"
+    twoPairs: "Two Pairs",
+    threeOfAKind: "Three of a Kind",
+    fourOfAKind: "Four of a Kind",
 }
 
 function bestHand(hand) {
@@ -17,8 +19,14 @@ function bestHand(hand) {
         return accumulator;
     }, new Map());
 
-    if (([...numeralGroup.values()].filter(x => x.count === 2)).length === 2) return ranks.twoPair;
-    if ([...numeralGroup.values()].some(x => x.count === 2)) return ranks.onePair;
+    const fours = [...numeralGroup.values()].filter(x => x.count === 4).length;
+    const triplets = [...numeralGroup.values()].filter(x => x.count === 3).length;
+    const pairs = [...numeralGroup.values()].filter(x => x.count === 2).length;
+
+    if (fours === 1) return ranks.fourOfAKind;
+    if (triplets === 1) return ranks.threeOfAKind;
+    if (pairs === 2) return ranks.twoPairs;
+    if (pairs === 1) return ranks.onePair;
     
     return ranks.highCard;
 }
