@@ -12,10 +12,12 @@ const ranks = {
 }
 
 const ten = 'T';
+const jack = 'J';
+const queen = 'Q';
+const king = 'K';
 const ace = 'A';
 
-// TODO: Handle A being high or low
-const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', ten, 'J', 'Q', 'K', ace]
+const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', ten, jack, queen, king, ace]
 
 function bestHand(hand) {
     const cards = hand.split(' ');
