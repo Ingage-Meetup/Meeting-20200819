@@ -13,20 +13,10 @@ function bestHand(hand) {
     const numerals = cards.map(card => card[0]);
     const suites = cards.map(card => card[1]);
 
-    var numeralGroup = numerals.reduce((accumulator, numeral) => {
-        const value = accumulator.get(numeral) || {number: numeral, count: 0};
-        value.count++;
-        accumulator.set(numeral,  value);
-
-        return accumulator;
-    }, new Map());
-
-    var suiteGroup = suites.reduce((accumulator, suite) => {
-        const value = accumulator.get(suite) || {suite: suite, count: 0};
-        value.count++;
-        accumulator.set(suite,  value);
-        return accumulator;
-    }, new Map());
+    const numeralGroup = groupBy(numerals, 'number');
+    const suiteGroup = groupBy(suites, 'suite');
+    console.log(numeralGroup);
+    console.log(suiteGroup);
 
     const numeralGroupArray = [...numeralGroup.values()];
     const suiteGroupArray = [...suiteGroup.values()];
@@ -44,6 +34,15 @@ function bestHand(hand) {
     if (pairs === 1) return ranks.onePair;
     
     return ranks.highCard;
+}
+
+function groupBy(items, fieldName) {
+    return items.reduce((accumulator, item) => {
+        const value = accumulator.get(item) || {[fieldName]: item, count: 0};
+        value.count++;
+        accumulator.set(item,  value);
+        return accumulator;
+    }, new Map());
 }
 
 module.exports = { ranks, bestHand };
