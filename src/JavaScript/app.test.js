@@ -78,3 +78,10 @@ describe('Given a hand with Ace, 2, 3, 4, 5 with same suite', () => {
     });
 });
 
+
+describe('Given a hand with 10, Jack, Queen, King, Ace with same suite', () => {
+    it('should return royal flush', () => {
+        expect(bestHand('TH JH QH KH AH')).toBe(ranks.royalFlush);
+    });
+});
+

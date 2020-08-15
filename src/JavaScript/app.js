@@ -7,18 +7,20 @@ const ranks = {
     fourOfAKind: "Four of a Kind",
     flush: "Flush",
     straight: "Straight",
-    straightFlush: "Straight Flush"
+    straightFlush: "Straight Flush",
+    royalFlush: "Royal Flush"
 }
 
+const ten = 'T';
+const ace = 'A';
+
 // TODO: Handle A being high or low
-const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', ten, 'J', 'Q', 'K', ace]
 
 function bestHand(hand) {
     const cards = hand.split(' ');
     const numerals = cards.map(card => card[0]);
     const suites = cards.map(card => card[1]);
-
-    console.log('numerals', numerals);
 
     const numeralGroup = groupBy(numerals, 'number');
     const suiteGroup = groupBy(suites, 'suite');
@@ -30,6 +32,7 @@ function bestHand(hand) {
 
     const straight = isStraight(numerals);
 
+    if (isRoyalFlush(numerals, flush, straight)) return ranks.royalFlush
     if (flush && straight) return ranks.straightFlush;    
     if (fours === 1) return ranks.fourOfAKind;
     if (triplets === 1 && pairs == 1) return ranks.fullHouse;
@@ -40,6 +43,12 @@ function bestHand(hand) {
     if (pairs === 1) return ranks.onePair;
     
     return ranks.highCard;
+}
+
+function isRoyalFlush(numerals, flush, straight) {
+    if (!flush || !straight) return false;
+
+    return numerals.some(x => x === ten) && numerals.some(x => x === ace);
 }
 
 function isStraight(numerals) {    
