@@ -41,3 +41,27 @@ describe('Given a hand with all the same suite', () => {
         expect(bestHand('JS 2S 5S 7S 9S')).toBe(ranks.flush);
     });
 });
+
+describe('Given a hand with consecutive numbers', () => {
+    it('should return straight', () => {
+        expect(bestHand('5S 6H 7S 8D 9S')).toBe(ranks.straight);
+    });
+});
+
+describe('Given a hand with consecutive numbers and face cards', () => {
+    it('should return straight', () => {
+        expect(bestHand('8S 9H TS JD QS')).toBe(ranks.straight);
+    });
+});
+
+describe('Given a hand with consecutive face cards', () => {
+    it('should return straight', () => {
+        expect(bestHand('QS TH KS JD AS')).toBe(ranks.straight);
+    });
+});
+
+describe('Given a hand with Ace, 2, 3, 4, 5', () => {
+    it('should return straight', () => {
+        expect(bestHand('2H 3S 4S 5D AS')).toBe(ranks.straight);
+    });
+});
