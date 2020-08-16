@@ -59,11 +59,18 @@ function isStraight(numerals) {
         .sort( (x, y) => x > y);
 
     // Handle special case of Ace a low card
-    if (cardIndexes[0] == 0 && cardIndexes[cardIndexes.length - 1] == cardOrder.length - 1) {
-        cardIndexes.pop();
+    const firstCardIndex = cardIndexes[0];
+    const lastCardIndex = cardIndexes[cardIndexes.length - 1];
+    if (firstCardIndex == 0 && lastCardIndex == cardOrder.length - 1) {
+        cardIndexes = cardIndexes.slice(0, cardIndexes.length - 1);
     }
-
+    
     let previous= cardIndexes[0] - 1;
+
+    // cardIndexes.reduce((accumulator, value) => {
+    //     if accumulator == 
+    // } 
+    // )
 
     // TODO: Can we do without loops?
     for (const cardIndex of cardIndexes) {
