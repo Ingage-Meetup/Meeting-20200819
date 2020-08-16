@@ -19,14 +19,7 @@ const ace = 'A';
 
 const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', ten, jack, queen, king, ace]
 
-function bestHand(hand) {
-    const cards = hand.split(' ');
-    const numerals = cards.map(card => card[0]);
-    const suites = cards.map(card => card[1]);
-
-    const numeralGroup = groupBy(numerals, 'number');
-    const suiteGroup = groupBy(suites, 'suite');
-
+function handRank(numerals, numeralGroup, suiteGroup) {
     const flush = suiteGroup.filter(x => x.count === 5).length === 1;
     const fours = numeralGroup.filter(x => x.count === 4).length;
     const triplets = numeralGroup.filter(x => x.count === 3).length;
@@ -45,6 +38,21 @@ function bestHand(hand) {
     if (pairs === 1) return ranks.onePair;
     
     return ranks.highCard;
+}
+
+function bestHand(hand) {
+    const cards = hand.split(' ');
+    const numerals = cards.map(card => card[0]);
+    const suites = cards.map(card => card[1]);
+
+    const numeralGroup = groupBy(numerals, 'number');
+    const suiteGroup = groupBy(suites, 'suite');
+
+    const rank = handRank(numerals, numeralGroup, suiteGroup);
+    return {
+        rank: rank,
+        numeralGroup: numeralGroup
+    };
 }
 
 function isRoyalFlush(numerals, flush, straight) {
