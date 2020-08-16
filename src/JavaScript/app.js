@@ -59,27 +59,23 @@ function isStraight(numerals) {
         .sort( (x, y) => x > y);
 
     cardIndexes = removeAceIfPlayedInLowStraight(cardIndexes);
-    
-    // TODO: Would prefer to exit early, and not change return type between in and boolean
-    var straight = cardIndexes.reduce((previousValue, value) => {        
-            if (previousValue !== value - 1) {
-                return false;
-            }
-            return value;   
-        }, 
-        cardIndexes[0] - 1);
 
-    // console.log('straight', straight);
-    return straight !== false;
+    return consecutiveCards(cardIndexes);
+}
 
-    // let previous= cardIndexes[0] - 1;
-    // TODO: Can we do without loops?
-    // for (const cardIndex of cardIndexes) {
-    //     if (cardIndex !== previous + 1) return false;
-    //     previous = cardIndex;
-    // }
+function consecutiveCards(cardIndexes) {
+    return cardIndexes.every( (item, index, items) => 
+        (index === 0) || 
+        (items[index-1] === item - 1)
+    );
 
-    // return true;
+    // const straight = cardIndexes.every( (item, index, items) => {
+    //     if (index == 0) return true;
+    //     const previousItem = items[index-1];
+    //     return (previousItem == item - 1);
+    // });
+
+    // return straight;
 }
 
 function removeAceIfPlayedInLowStraight(cardIndexes) {    
