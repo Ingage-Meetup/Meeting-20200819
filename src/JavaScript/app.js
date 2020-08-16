@@ -69,13 +69,6 @@ function consecutiveCards(cardIndexes) {
         (items[index-1] === item - 1)
     );
 
-    // const straight = cardIndexes.every( (item, index, items) => {
-    //     if (index == 0) return true;
-    //     const previousItem = items[index-1];
-    //     return (previousItem == item - 1);
-    // });
-
-    // return straight;
 }
 
 function removeAceIfPlayedInLowStraight(cardIndexes) {    
