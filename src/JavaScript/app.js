@@ -1,14 +1,14 @@
 const ranks = {
-    highCard: "HighCard",
-    onePair: "Pair",
-    twoPairs: "Two Pairs",
-    threeOfAKind: "Three of a Kind",
-    fullHouse: "Full House",
-    fourOfAKind: "Four of a Kind",
-    flush: "Flush",
-    straight: "Straight",
-    straightFlush: "Straight Flush",
-    royalFlush: "Royal Flush"
+    highCard: 1,
+    onePair: 2,
+    twoPairs: 3,
+    threeOfAKind: 4,
+    fullHouse: 5,
+    fourOfAKind: 6,
+    flush: 7,
+    straight: 8,
+    straightFlush: 9,
+    royalFlush: 10
 }
 
 const ten = 'T';
@@ -19,7 +19,7 @@ const ace = 'A';
 
 const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', ten, jack, queen, king, ace]
 
-function handRank(numerals, numeralGroup, suiteGroup) {
+function rankHand(numerals, numeralGroup, suiteGroup) {
     const flush = suiteGroup.filter(x => x.count === 5).length === 1;
     const fours = numeralGroup.filter(x => x.count === 4).length;
     const triplets = numeralGroup.filter(x => x.count === 3).length;
@@ -48,7 +48,7 @@ function bestHand(hand) {
     const numeralGroup = groupBy(numerals, 'number');
     const suiteGroup = groupBy(suites, 'suite');
 
-    const rank = handRank(numerals, numeralGroup, suiteGroup);
+    const rank = rankHand(numerals, numeralGroup, suiteGroup);
     return {
         rank: rank,
         numeralGroup: numeralGroup
