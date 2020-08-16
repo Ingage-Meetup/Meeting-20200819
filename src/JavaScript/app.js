@@ -58,12 +58,7 @@ function isStraight(numerals) {
         .map(x => cardOrder.indexOf(x))
         .sort( (x, y) => x > y);
 
-    // Handle special case of Ace a low card
-    const firstCardIndex = cardIndexes[0];
-    const lastCardIndex = cardIndexes[cardIndexes.length - 1];
-    if (firstCardIndex == 0 && lastCardIndex == cardOrder.length - 1) {
-        cardIndexes = cardIndexes.slice(0, cardIndexes.length - 1);
-    }
+    cardIndexes = removeAceIfPlayedInLowStraight(cardIndexes);
     
     let previous= cardIndexes[0] - 1;
 
@@ -79,6 +74,16 @@ function isStraight(numerals) {
     }
 
     return true;
+}
+
+function removeAceIfPlayedInLowStraight(cardIndexes) {    
+    const firstCardIndex = cardIndexes[0];
+    const lastCardIndex = cardIndexes[cardIndexes.length - 1];
+    if (firstCardIndex == 0 && lastCardIndex == cardOrder.length - 1) {
+        return cardIndexes.slice(0, cardIndexes.length - 1);
+    }
+
+    return cardIndexes;
 }
 
 function groupBy(items, fieldName) {
