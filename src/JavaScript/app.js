@@ -2,11 +2,11 @@ const ranks = {
     highCard: 1,
     onePair: 2,
     twoPairs: 3,
-    threeOfAKind: 4,
-    fullHouse: 5,
-    fourOfAKind: 6,
-    flush: 7,
-    straight: 8,
+    threeOfAKind: 4,    
+    straight: 5,
+    flush: 6,
+    fullHouse: 7,
+    fourOfAKind: 8,
     straightFlush: 9,
     royalFlush: 10
 }
@@ -49,11 +49,11 @@ function rankHand(numerals, numeralGroup, suiteGroup) {
 // TODO: Refactor to PokerHand objects
 // TODO: Refactor to support n number of hands
 function compareHands(hand1, hand2) {
-    let bestHand1 = bestHand(hand1);
-    let bestHand2 = bestHand(hand2);
+    const bestHand1 = bestHand(hand1);
+    const bestHand2 = bestHand(hand2);
 
     if (bestHand1.rank < bestHand2.rank) return results.loss;
-    if (bestHand1.rank > bestHand2.rank) return results.win;    
+    if (bestHand1.rank > bestHand2.rank) return results.win;
 
     const numeralGroup1 = bestHand1.numeralGroup.sort(compareByCountDescAndNumberDesc);
     const numeralGroup2 = bestHand2.numeralGroup.sort(compareByCountDescAndNumberDesc);

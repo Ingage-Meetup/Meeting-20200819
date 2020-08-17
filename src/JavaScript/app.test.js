@@ -114,26 +114,93 @@ describe('Given a single hand', () => {
     });    
 });
 
-describe('Given two hands', () => {
-    describe('When the first hand has high card of ace', () => {
-        const firstHand = '2H 4D TC 7C AH';
-        describe('And second hand has a pair of twos', () => {
+describe('Given two hands with different ranks', () => {
+    describe('When the first hand is a high card and the second is a pair', () => {
+        it('should return loss', () => {
+            const firstHand = '2H 4D TC 7C AH';
             const secondHand = '2C 2D TH 7D AD';
-            it('should return lose', () => {
-                const result  = compareHands(firstHand, secondHand);
-                expect(result).toBe(results.loss);
-            });        
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
         });
+    });
+    describe('When the first hand is a pair and the second is two pairs', () => {
+        it('should return loss', () => {
+            const firstHand = '2H 4D TC 7C AH';
+            const secondHand = '3C 3D 4H 7D 4C';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
 
-        describe('And second hand has a royalFlush', () => {
+    describe('When the first hand is a two pairs and the second is three of a kind', () => {
+        it('should return loss', () => {
+            const firstHand = '3C 3D 4H 7D 4C';
+            const secondHand = '5C 5D 5H 9C 2D';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
+
+    describe('When the first hand is a three of a kind and the second is a straight', () => {
+        it('should return loss', () => {
+            const firstHand = '5C 5D 5H 9C 2D';
+            const secondHand = '5S 6S 4D 8C 7S';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
+
+    describe('When the first hand is a straight and the second is a flush', () => {
+        it('should return loss', () => {
+            const firstHand = '5S 6S 4D 8C 7S';
+            const secondHand = '2D 5D 9D AD TD';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
+
+    describe('When the first hand is a flush and the second is a full house', () => {
+        it('should return loss', () => {
+            const firstHand = '2D 5D 9D AD TD';
+            const secondHand = '3D 3C 3H JS JH';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
+
+    describe('When the first hand is a full house and the second is a four of a kind', () => {
+        it('should return loss', () => {
+            const firstHand = '3D 3C 3H JS JH';
+            const secondHand = '2C 2D 2H 2S 4D';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
+
+    describe('When the first hand is a a four of a kind and the second is a straight flush', () => {
+        it('should return loss', () => {
+            const firstHand = '2C 2D 2H 2S 4D';
+            const secondHand = '3S 4S 5S 6S 7S';
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
+        });
+    });
+
+    describe('When the first hand is a straight flush and the second is a royal flush', () => {
+        it('should return loss', () => {
+            const firstHand = '3S 4S 5S 6S 7S';
             const secondHand = 'TC JC QC KC AC';
-            it('should return lose', () => {
-                const result  = compareHands(firstHand, secondHand);
-                expect(result).toBe(results.loss);
-            });        
+            const result  = compareHands(firstHand, secondHand);
+            expect(result).toBe(results.loss);
         });
+    });
+});
 
-        describe('And second has high card of ace followed by king', () => {
+describe('Given two hands with same ranks', () => {
+    describe('When the first hand has high card of ace followed by a ten', () => {
+        const firstHand = '2H 4D TC 7C AH';
+
+        describe('And second has high card of ace followed by a king', () => {
             const secondHand = '2S 4S TS KC AC';
             it('should return loss', () => {
                 const result  = compareHands(firstHand, secondHand);
@@ -141,7 +208,7 @@ describe('Given two hands', () => {
             });        
         });
 
-        describe('And second has high card followed with same cards different suite ', () => {
+        describe('And second has high card followed by the same cards different suite ', () => {
             const secondHand = '2D 4C TD 7H AD';
             it('should return loss', () => {
                 const result  = compareHands(firstHand, secondHand);
@@ -199,6 +266,59 @@ describe('Given two hands', () => {
             it('should return loss', () => {
                 const result = compareHands(firstHand, secondHand);
                 expect(result).toBe(results.win);
+            });
+        });
+
+        describe('And second hand has pair with different suites', () => {            
+            const secondHand = '4D QD TH TC 8D';
+            it('should return loss', () => {
+                
+                const result = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.tie);
+            });
+        });
+    });
+
+    describe('When the first has two pairs with sixes and nines with jack high', () => {
+        const firstHand = '6D 6C 9H 9S JC';
+
+        describe('and the second has two pairs with fives and nines', () => {
+            const secondHand = '6S 6H 9C 9D TC';
+            it('should return win', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.win);
+            });
+        });
+
+        describe('and the second has two pairs with sixes and tens', () => {
+            const secondHand = '6S 6H TC TD 2C';
+            it('should return loss', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.loss);
+            });
+        });
+
+        describe('and the second has two pairs with sixes and nines with 2 high', () => {
+            const secondHand = '6D 6C 9H 9S 2C';
+            it('should return win', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.win);
+            });
+        });
+
+        describe('and the second has two pairs with sixes and nines with ace high', () => {
+            const secondHand = '6D 6C 9H 9S AC';
+            it('should return loss', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.loss);
+            });
+        });
+
+        describe('and the second has two pairs with sixes and nines with jack high', () => {
+            const secondHand = '6D 6C 9H 9S JD';
+            it('should return tie', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.tie);
             });
         });
     });
