@@ -1,10 +1,11 @@
-const { cardOrder, bestHand } = require('./hand');
+const { bestHand } = require('./hand');
+const { cardOrder } = require('./cards');
 
 const results = {
     win: 1,
     loss: -1,
     tie: 0
-}
+};
 
 // TODO: Refactor to PokerHand objects
 // TODO: Refactor to support n number of hands

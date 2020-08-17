@@ -1,3 +1,5 @@
+const { cardOrder, faceCards } = require('./cards');
+
 const ranks = {
     highCard: 1,
     onePair: 2,
@@ -11,13 +13,20 @@ const ranks = {
     royalFlush: 10
 }
 
-const ten = 'T';
-const jack = 'J';
-const queen = 'Q';
-const king = 'K';
-const ace = 'A';
+function bestHand(hand) {
+    const cards = hand.split(' ');
+    const numerals = cards.map(card => card[0]);
+    const suites = cards.map(card => card[1]);
 
-const cardOrder = ['2', '3', '4', '5', '6', '7', '8', '9', ten, jack, queen, king, ace]
+    const numeralGroup = groupBy(numerals, 'number');
+    const suiteGroup = groupBy(suites, 'suite');
+
+    const rank = rankHand(numerals, numeralGroup, suiteGroup);
+    return {
+        rank: rank,
+        numeralGroup: numeralGroup
+    };
+}
 
 function rankHand(numerals, numeralGroup, suiteGroup) {
     const flush = suiteGroup.filter(x => x.count === 5).length === 1;
@@ -40,25 +49,10 @@ function rankHand(numerals, numeralGroup, suiteGroup) {
     return ranks.highCard;
 }
 
-function bestHand(hand) {
-    const cards = hand.split(' ');
-    const numerals = cards.map(card => card[0]);
-    const suites = cards.map(card => card[1]);
-
-    const numeralGroup = groupBy(numerals, 'number');
-    const suiteGroup = groupBy(suites, 'suite');
-
-    const rank = rankHand(numerals, numeralGroup, suiteGroup);
-    return {
-        rank: rank,
-        numeralGroup: numeralGroup
-    };
-}
-
 function isRoyalFlush(numerals, flush, straight) {
     if (!flush || !straight) return false;
 
-    return numerals.some(x => x === ten) && numerals.some(x => x === ace);
+    return numerals.some(x => x === faceCards.ten) && numerals.some(x => x === faceCards.ace);
 }
 
 function isStraight(numerals) {    
@@ -100,4 +94,4 @@ function groupBy(items, fieldName) {
     return [...results.values()];
 }
 
-module.exports = { ranks, cardOrder, bestHand };
+module.exports = { ranks, bestHand };
