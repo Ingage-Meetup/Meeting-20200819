@@ -55,7 +55,7 @@ Shell projects for the August 19 C3 meetup.
     Full House        Combination of three of a kind and a pair
     Four of a Kind    Four cards of the same value
     Straight Flush    Straight of the same suit
-    Royal Flush       Straigh flush where suit is Hearts and the straight is Ten through Ace
+    Royal Flush       Straight flush where the straight is Ten through Ace
 
 
 ## Refactoring
