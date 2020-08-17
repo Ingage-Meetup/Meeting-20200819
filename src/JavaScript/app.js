@@ -53,13 +53,25 @@ function compareHands(hand1, hand2) {
     let bestHand2 = bestHand(hand2);
 
     if (bestHand1.rank < bestHand2.rank) return results.loss;
-    if (bestHand1.rank > bestHand2.rank) return results.win;
-    
-    // console.log('bestHand1', bestHand1);
-    numeralGroup1 = bestHand1.numeralGroup.reverse();
-    numeralGroup2 = bestHand2.numeralGroup.reverse();
+    if (bestHand1.rank > bestHand2.rank) return results.win;    
+
+    const numeralGroup1 = bestHand1.numeralGroup.sort(compareByCountDescAndNumberDesc);
+    const numeralGroup2 = bestHand2.numeralGroup.sort(compareByCountDescAndNumberDesc);
 
     return compareSameRank(numeralGroup1, numeralGroup2);
+}
+
+function compareByCountDescAndNumberDesc(x, y) {
+    if (x.count === y.count) {
+        xIndex = cardOrder.indexOf(x.number);
+        yIndex = cardOrder.indexOf(y.number);
+        if (xIndex == yIndex) return 0;
+        if (xIndex < yIndex) return 1;
+        return -1;
+    }
+    
+    if (x.count < y.count) return 1
+    return -1;
 }
 
 function compareSameRank(numeralGroup1, numeralGroup2) {
