@@ -1,4 +1,4 @@
-const { ranks, bestHand } = require('./app');
+const { ranks, results, bestHand, compareHands } = require('./app');
 
 describe('Given a single hand', () => {
     describe('When there are no cards of the same rank', () => {
@@ -114,3 +114,57 @@ describe('Given a single hand', () => {
     });    
 });
 
+describe('Given two hands', () => {
+    describe('When the first hand has high card of ace', () => {
+        const firstHand = '2H 4D TC 7C AH';
+        describe('And second hand has a pair of twos', () => {
+            const secondHand = '2C 2D TH 7D AD';
+            it('should return lose', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.loss);
+            });        
+        });
+
+        describe('And second hand has a royalFlush', () => {
+            const secondHand = 'TC JC QC KC AC';
+            it('should return lose', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.loss);
+            });        
+        });
+
+        describe('And second has high card of ace followed by king', () => {
+            const secondHand = '2S 4S TS KC AC';
+            it('should return loss', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.loss);
+            });        
+        });
+
+        describe('And second has high card followed with same cards different suite ', () => {
+            const secondHand = '2D 4C TD 7H AD';
+            it('should return loss', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.tie);
+            });        
+        });
+
+        describe('And second hand has high card without ace', () => {                        
+            const secondHand = '2D 4H TS 7D KH';
+            it('should have first hand winning', () => {                
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.win);
+            });
+        });
+
+        describe('And second has high card of ace followed by 9', () => {
+            const secondHand = 'AD 3C 5D 7H 9D';
+            it('should return loss', () => {
+                const result  = compareHands(firstHand, secondHand);
+                expect(result).toBe(results.win);
+            });        
+        });
+
+
+    });
+});
