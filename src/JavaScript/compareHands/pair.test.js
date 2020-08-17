@@ -1,4 +1,4 @@
-const { results, compareHands } = require('../app');
+const { results, compareHands } = require('../compareHands');
 
 describe('Given two hands with single pairs', () => {
     describe('When the first has has a pair of tens with queen high', () => {

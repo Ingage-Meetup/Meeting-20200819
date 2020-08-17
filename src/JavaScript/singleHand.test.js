@@ -1,4 +1,4 @@
-const { ranks, bestHand } = require('./app');
+const { ranks, bestHand } = require('./hand');
 
 describe('Given a single hand', () => {
     describe('When there are no cards of the same rank', () => {
