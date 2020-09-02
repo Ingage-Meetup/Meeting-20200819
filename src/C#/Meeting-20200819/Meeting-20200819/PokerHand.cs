@@ -10,7 +10,8 @@ namespace Meeting_20200819
         HighCard = 1,
         Pair = 2,
         TwoPair = 3,
-        ThreeOfAKind = 4
+        ThreeOfAKind = 4,
+        Straight = 5
     }
 
     public class PokerHand
